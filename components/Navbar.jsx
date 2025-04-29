@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { User, ShoppingCartIcon } from "lucide-react";
+import { User, ShoppingCartIcon, LogOut } from "lucide-react";
 import QuickSearch from "./QuickSearch";
+import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
 
 export default function Navbar() {
   return (
@@ -9,10 +10,30 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-10 py-5 relative border-b-[1px] border-gray-300">
         {/* Left side links */}
         <div className="flex gap-8">
-          <Link href="/shop-all" className="hover:text-primary transition">Shop All</Link>
-          <Link href="/about" className="hover:text-primary transition">About Us</Link>
-          <Link href="/" className="hover:text-primary transition">Become a Partner</Link>
-          <Link href="/blog" className="hover:text-primary transition">Blog</Link>
+          <Link
+            href="/shop-all"
+            className="hover:text-primary hover:underline transition"
+          >
+            Shop All
+          </Link>
+          <Link
+            href="/about"
+            className="hover:text-primary transition hover:underline"
+          >
+            About Us
+          </Link>
+          <Link
+            href="/"
+            className="hover:text-primary transition hover:underline"
+          >
+            Become a Partner
+          </Link>
+          <Link
+            href="/blog"
+            className="hover:text-primary transition hover:underline"
+          >
+            Blog
+          </Link>
         </div>
 
         {/* Center logo */}
@@ -30,12 +51,24 @@ export default function Navbar() {
 
         {/* Right side icons */}
         <div className="flex gap-6">
-          <Link href="/sign-in" className="hover:text-primary transition">
-            <User size={24} />
-          </Link>
+          <SignedIn>
+            <Link href="/profile" className="hover:text-primary transition">
+              <User size={24} />
+            </Link>
+          </SignedIn>
+          <SignedOut>
+            <Link href="/sign-in" className="hover:text-primary transition">
+              <User size={24} />
+            </Link>
+          </SignedOut>
           <Link href="/cart" className="hover:text-primary transition">
             <ShoppingCartIcon size={24} />
           </Link>
+          <SignedIn>
+            <SignOutButton>
+              <LogOut />
+            </SignOutButton>
+          </SignedIn>
         </div>
       </div>
 

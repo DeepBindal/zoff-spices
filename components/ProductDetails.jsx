@@ -1,15 +1,31 @@
 "use client";
 
+import { addCart } from "@/lib/actions/cart.actions";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 
-const ProductDetails = ({ product }) => {
+const ProductDetails = ({ product, userId }) => {
   const [selectedVariant, setSelectedVariant] = useState(
     product.variants?.[0]?.weight || ""
   );
   const addToCart = async () => {
-    
-  }
+    try {
+      const price =
+        quantity *
+        product.variants.find((v) => v.weight === selectedVariant)?.price;
+      const data = {
+        userId,
+        items: [
+          { product: product._id, quantity, variant: selectedVariant, price },
+        ],
+      };
+      const res = await addCart(data);
+      toast("Items Added to cart");
+    } catch (error) {
+      console.log(error + "Error adding to cart");
+    }
+  };
   const [quantity, setQuantity] = useState(1);
 
   return (
@@ -71,7 +87,10 @@ const ProductDetails = ({ product }) => {
           </button>
         </div>
 
-        <button className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
+        <button
+          onClick={addToCart}
+          className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+        >
           Add to Cart
         </button>
       </div>
