@@ -29,18 +29,29 @@ const QuickSearch = () => {
       url: "https://zofffoods.com/cdn/shop/files/Frame_123_2.jpg?crop=center&height=81&v=1736015032&width=81",
     },
   ];
+
   return (
-    <div className="flex gap-10 items-center justify-center overflow-x-auto sm:overflow-hidden border-b-[1px] border-gray-300 py-4">
-      {Items.map((item) => (
-        <Link key={item.name} href={`/shop-all/?q=${item.name}`}>
-          <div
-            className="flex flex-col justify-center items-center"
+    <div className="border-b border-gray-300 py-4">
+      <div className="flex gap-6 sm:gap-10 items-center justify-start sm:justify-center overflow-x-auto px-4 sm:px-0 scrollbar-hide">
+        {Items.map((item) => (
+          <Link
+            key={item.name}
+            href={`/shop-all/?q=${item.name}`}
+            className="flex flex-col items-center text-center hover:text-primary transition-all duration-200 min-w-[80px]"
           >
-            <Image src={item.url} alt="item-img" height={60} width={60} />
-            <p>{item.name}</p>
-          </div>
-        </Link>
-      ))}
+            <div className="w-[60px] h-[60px] mb-1 rounded-full border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              <Image
+                src={item.url}
+                alt={item.name}
+                width={60}
+                height={60}
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <p className="text-sm font-medium whitespace-nowrap">{item.name}</p>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
