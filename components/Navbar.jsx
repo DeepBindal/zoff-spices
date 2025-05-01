@@ -7,8 +7,6 @@ import { User, ShoppingCartIcon, LogOut, Menu, X } from "lucide-react";
 import QuickSearch from "./QuickSearch";
 import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
 import { useCart } from "@/lib/context/CartContext";
-import { getUser } from "@/lib/actions/user.actions";
-import { getUserCart } from "@/lib/actions/cart.actions";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
