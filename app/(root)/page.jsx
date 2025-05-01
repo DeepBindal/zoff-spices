@@ -1,29 +1,14 @@
+import Categories from "@/components/Categories";
 import FeaturedIn from "@/components/FeaturedIn";
 import ReelsCarousel from "@/components/ReelsCarousel";
 import USPSection from "@/components/USPSection";
 import VideoThumbnail from "@/components/VideoThumbnail";
+import { seedProducts } from "@/lib/actions/product.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
-  const CATEGORIES = [
-    {
-      url: "https://zofffoods.com/cdn/shop/files/Frame_43_x400.jpg?v=1736010322",
-      name: "Whole Spices",
-    },
-    {
-      url: "https://zofffoods.com/cdn/shop/files/Frame_40_x400.jpg?v=1736010303",
-      name: "Seasonings",
-    },
-    {
-      url: "https://zofffoods.com/cdn/shop/files/Frame_43_x400.jpg?v=1736010322",
-      name: "Powdered Spices",
-    },
-    {
-      url: "https://zofffoods.com/cdn/shop/files/Frame_43_x400.jpg?v=1736010322",
-      name: "Dry Fruits",
-    },
-  ];
+export default async function Home() {
+  
   return (
     <div className="min-h-screen">
       {/* Desktop Hero Image */}
@@ -73,29 +58,7 @@ export default function Home() {
         </div>
       </div>
       <USPSection />
-      <section className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-white">
-        <h1 className="text-[#e24504] text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-10">
-          CATEGORIES JO DIL JEET LE!
-        </h1>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full max-w-6xl">
-          {CATEGORIES.map((item) => (
-            <Link
-              href={`/shop-all/?q=${item.name}`}
-              key={item.name}
-              className="flex flex-col items-center transition-transform transform hover:scale-105"
-            >
-              <Image
-                src={item.url}
-                alt={item.name}
-                height={200}
-                width={200}
-                className="rounded-lg shadow-md object-contain"
-              />
-            </Link>
-          ))}
-        </div>
-      </section>
+      <Categories />
       <ReelsCarousel />
       <VideoThumbnail
         imageLink="https://zofffoods.com/cdn/shop/files/Frame_1171276546.jpg?v=1736010463&width=1500"

@@ -1,43 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  User,
-  ShoppingCartIcon,
-  LogOut,
-  Menu,
-  X,
-} from "lucide-react";
+import { User, ShoppingCartIcon, LogOut, Menu, X } from "lucide-react";
 import QuickSearch from "./QuickSearch";
-import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
+import { useCart } from "@/lib/context/CartContext";
+import { getUser } from "@/lib/actions/user.actions";
+import { getUserCart } from "@/lib/actions/cart.actions";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { quantity, setQuantity } = useCart();
 
   return (
-    <nav className="border-b border-gray-300 bg-white z-50 relative">
-      <div className="flex items-center justify-between px-4 md:px-10 py-5">
+    <nav className=" bg-white z-50 relative">
+      <div className="border-b border-gray-300 flex items-center justify-between px-4 md:px-10 py-5">
         {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Left Nav Links - hidden on mobile */}
         <div className="hidden md:flex gap-8 flex-1">
-          <Link href="/shop-all" className="hover:text-primary hover:underline transition">
+          <Link
+            href="/shop-all"
+            className="hover:text-primary hover:underline transition"
+          >
             Shop All
           </Link>
-          <Link href="/about" className="hover:text-primary hover:underline transition">
+          <Link
+            href="/about"
+            className="hover:text-primary hover:underline transition"
+          >
             About Us
           </Link>
-          <Link href="/" className="hover:text-primary hover:underline transition">
+          <Link
+            href="/"
+            className="hover:text-primary hover:underline transition"
+          >
             Become a Partner
           </Link>
-          <Link href="/blog" className="hover:text-primary hover:underline transition">
+          <Link
+            href="/blog"
+            className="hover:text-primary hover:underline transition"
+          >
             Blog
           </Link>
         </div>
@@ -67,8 +80,17 @@ export default function Navbar() {
               <User size={24} />
             </Link>
           </SignedOut>
-          <Link href="/cart" className="hover:text-primary transition">
-            <ShoppingCartIcon size={24} />
+          <Link href="/cart" className="relative inline-block">
+            <ShoppingCartIcon
+              size={24}
+              className="hover:text-primary transition"
+            />
+
+            {quantity > 0 && (
+              <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-semibold px-1.5 py-0.5 rounded-full min-w-[16px] h-[16px] flex items-center justify-center">
+                {quantity}
+              </span>
+            )}
           </Link>
           <SignedIn>
             <SignOutButton>

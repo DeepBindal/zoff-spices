@@ -31,7 +31,7 @@ const QuickSearch = () => {
   ];
 
   return (
-    <div className="border-b border-gray-300 py-4">
+    <div className=" py-4">
       <div className="flex gap-6 sm:gap-10 items-center justify-start sm:justify-center overflow-x-auto px-4 sm:px-0 scrollbar-hide">
         {Items.map((item) => (
           <Link
@@ -48,7 +48,7 @@ const QuickSearch = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <p className="text-sm font-medium whitespace-nowrap">{item.name}</p>
+            <p className="text-[12px]  whitespace-nowrap">{item.name}</p>
           </Link>
         ))}
       </div>

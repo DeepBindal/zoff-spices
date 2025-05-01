@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Table,
@@ -11,11 +11,17 @@ import {
   TableRow,
 } from "./ui/table";
 import { updateCart } from "@/lib/actions/cart.actions";
+import { useCart } from "@/lib/context/CartContext";
 
 const CartDetails = ({ initialCart, userId }) => {
   const [cart, setCart] = useState(initialCart);
+  let {quantity, setQuantity} = useCart();
   const [loadingItem, setLoadingItem] = useState(null);
 
+  useEffect(() => {
+    quantity = cart.items.reduce((q, item) => q + item.quantity, 0);
+    setQuantity(quantity);
+  }, [cart, quantity])
   const handleQuantityChange = async (productId, variant, newQty, price) => {
     if (newQty < 1) return;
 

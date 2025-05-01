@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 const products = [
   {
@@ -46,6 +47,8 @@ const products = [
 
 export default function ReelsCarousel() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   return (
     <section className="bg-white py-12">
@@ -62,10 +65,16 @@ export default function ReelsCarousel() {
           />
         </h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div
+          className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          ref={ref}
+        >
           {products.map((product, index) => (
-            <div
+            <motion.div
               key={product.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: index * 0.2, duration: 0.5 }}
               className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 transform hover:scale-[1.02]"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -93,7 +102,7 @@ export default function ReelsCarousel() {
                 </h3>
                 <p className="text-gray-600 text-sm">{product.price}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#9B2D0E] text-white pt-10 relative">
+    <footer className="bg-[#9B2D0E] text-white pt-10 relative mt-2">
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8 text-sm">
         {/* Logo & Subscription */}
         <div>
@@ -12,7 +12,7 @@ const Footer = () => {
           <p className="mb-4">We deliver spices at their best form in flavour and nutrients!</p>
           <form className="flex rounded-full overflow-hidden border-2 border-white bg-white">
             <input
-              type="email"
+              type="text"
               placeholder="Email"
               className="flex-1 px-3 py-2 text-black outline-none"
             />
