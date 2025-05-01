@@ -59,11 +59,11 @@ export default async function Home() {
       </div>
       <USPSection />
       <Categories />
-      <ReelsCarousel />
       <VideoThumbnail
         imageLink="https://zofffoods.com/cdn/shop/files/Frame_1171276546.jpg?v=1736010463&width=1500"
         videoLink="https://www.youtube.com/embed/74j8GoLa5Bo?autoplay=1&enablejsapi=1"
       />
+      <ReelsCarousel />
       <div className="hidden my-8 sm:block">
         <Image
           src="https://zofffoods.com/cdn/shop/files/Frame_1171276545.jpg?v=1735988622"
