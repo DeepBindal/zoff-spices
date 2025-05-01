@@ -17,7 +17,9 @@ export default function USPSection() {
       try {
         const current_user = await getUser(user.id);
         const res = await getUserCart(current_user._id);
+        console.log(res)
         const cart = res.data;
+        if(!cart) return
         const q = cart.items.reduce((total, item) => total + item.quantity, 0);
         setQuantity(q);
       } catch (err) {

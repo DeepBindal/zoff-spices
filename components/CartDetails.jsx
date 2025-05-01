@@ -12,6 +12,7 @@ import {
 } from "./ui/table";
 import { updateCart } from "@/lib/actions/cart.actions";
 import { useCart } from "@/lib/context/CartContext";
+import Payments from "./Payments";
 
 const CartDetails = ({ initialCart, userId }) => {
   const [cart, setCart] = useState(initialCart);
@@ -145,6 +146,7 @@ const CartDetails = ({ initialCart, userId }) => {
       <div className="mt-6 flex justify-end text-xl font-bold text-gray-900">
         <p>Total: Rs. {totalPrice?.toFixed(2)}</p>
       </div>
+      <Payments amount={totalPrice} items={cart} userId={userId}/> 
     </div>
   );
 };
