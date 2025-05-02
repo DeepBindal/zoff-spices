@@ -1,5 +1,6 @@
 "use client";
 
+import { useCart } from "@/lib/context/CartContext";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -7,6 +8,7 @@ import { toast } from "sonner";
 const Payments = ({ amount, items, userId }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const {quantity, setQuantity} = useCart();
 
   const data = items.items.map((item) => ({
     quantity: item.quantity,
@@ -74,7 +76,8 @@ const Payments = ({ amount, items, userId }) => {
 
             if (res.ok) {
               toast.success("Order placed successfully!");
-              router.push("/");
+              router.push("/profile");
+              setQuantity(0);
             } else {
               throw new Error("Failed to save order");
             }
