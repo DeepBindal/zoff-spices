@@ -1,7 +1,5 @@
-'use client'
+"use client";
 
-import { deleteCartById } from "@/lib/actions/cart.actions";
-import { createOrder } from "@/lib/actions/order.actions";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -24,51 +22,86 @@ const Payments = ({ amount, items, userId }) => {
     document.body.appendChild(script);
   }, []);
 
-  const handlePayment = () => {
-    const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY, // Ensure this is defined in your .env
-      amount: amount * 100, // Amount in paisa
-      currency: "INR",
-      name: "ZOFF",
-      description: "Test Order",
-      image: "https://zofffoods.com/cdn/shop/files/image_1.png?v=1736009498&width=195",
-      handler: async function (response) {
-        setIsLoading(true);
-        try {
-          const paymentId = response.razorpay_payment_id;
+  const handlePayment = async () => {
+    setIsLoading(true);
 
-          const order = {
-            items: data,
-            total: amount,
-            user: userId,
-            orderId: paymentId,
-            status: "Paid",
-          };
+    try {
+      // STEP 1: Create Razorpay order (server-side)
+      const res = await fetch("/api/createOrder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: amount * 100 }),
+      });
 
-          await createOrder(order);
-          await deleteCartById(items._id);
+      const orderData = await res.json();
+      if (!orderData.id) throw new Error("Failed to create Razorpay order");
 
-          toast.success("Order placed successfully!");
-          router.push("/");
-        } catch (err) {
-          console.error("Payment handler error:", err);
-          toast.error("Something went wrong while placing the order.");
-        } finally {
-          setIsLoading(false);
-        }
-      },
-      prefill: {
-        name: "John Doe",
-        email: "john@example.com",
-        contact: "9999999999",
-      },
-      theme: {
-        color: "#FFD700",
-      },
-    };
+      // STEP 2: Setup Razorpay options
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
+        amount: amount * 100,
+        currency: "INR",
+        name: "ZOFF",
+        description: "Test Order",
+        order_id: orderData.id,
+        image:
+          "https://zofffoods.com/cdn/shop/files/image_1.png?v=1736009498&width=195",
+        handler: async function (response) {
+          try {
+            const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+            const order = {
+              items: data,
+              total: amount,
+              user: userId,
+              orderId: razorpay_order_id,
+              status: "Paid",
+            };
+
+            const paymentData = {
+              order,
+              cartId: items._id,
+              orderId: razorpay_order_id,
+              razorpayPaymentId: razorpay_payment_id,
+              razorpaySignature: razorpay_signature,
+            };
+
+            const res = await fetch("/api/verifyOrder", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(paymentData),
+            });
+
+            if (res.ok) {
+              toast.success("Order placed successfully!");
+              router.push("/");
+            } else {
+              throw new Error("Failed to save order");
+            }
+          } catch (err) {
+            console.error("Payment success but order error:", err);
+            toast.error("Payment succeeded but order saving failed.");
+          } finally {
+            setIsLoading(false);
+          }
+        },
+        prefill: {
+          name: "John Doe",
+          email: "john@example.com",
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#FFD700",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      console.error("Payment initialization error:", err);
+      toast.error("Unable to initiate payment.");
+      setIsLoading(false);
+    }
   };
 
   return (
