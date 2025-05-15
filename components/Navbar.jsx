@@ -57,7 +57,7 @@ export default function Navbar() {
         <div className="flex justify-center flex-1">
           <Link href="/">
             <Image
-              src="https://zofffoods.com/cdn/shop/files/image_1.png?v=1736009498&width=195"
+              src="https://imgs.search.brave.com/jy5UwQBc0Lt4pvy6ZOlCXw7yUfuEGtWmZeFK4Vitroc/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly80Lmlt/aW1nLmNvbS9kYXRh/NC9NTi9DRS9NWS0x/ODYyMjcwNi9hbm5h/cHVybmEtc3BpY2Vz/LTEyMHgxMjAuanBn"
               alt="logo"
               width={100}
               height={100}

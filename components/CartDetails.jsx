@@ -8,7 +8,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableHeader,
+  TableHeader, 
   TableRow,
 } from "./ui/table";
 import { updateCart } from "@/lib/actions/cart.actions";

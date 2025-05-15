@@ -76,7 +76,7 @@ const Payments = ({ amount, items, userId }) => {
 
             if (res.ok) {
               toast.success("Order placed successfully!");
-              router.push("/");
+              window.location.href = '/'
               setQuantity(0);
             } else {
               throw new Error("Failed to save order");

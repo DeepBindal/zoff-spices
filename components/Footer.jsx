@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -8,8 +9,18 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8 text-sm">
         {/* Logo & Subscription */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">ZOFF</h2>
-          <p className="mb-4">We deliver spices at their best form in flavour and nutrients!</p>
+          <Link href='/'>
+            <Image
+              src="https://imgs.search.brave.com/jy5UwQBc0Lt4pvy6ZOlCXw7yUfuEGtWmZeFK4Vitroc/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly80Lmlt/aW1nLmNvbS9kYXRh/NC9NTi9DRS9NWS0x/ODYyMjcwNi9hbm5h/cHVybmEtc3BpY2Vz/LTEyMHgxMjAuanBn"
+              alt="logo"
+              width={100}
+              height={100}
+              className="object-contain"
+            />
+          </Link>
+          <p className="mb-4">
+            We deliver spices at their best form in flavour and nutrients!
+          </p>
           <form className="flex rounded-full overflow-hidden border-2 border-white bg-white">
             <input
               type="text"
@@ -21,8 +32,10 @@ const Footer = () => {
             </button>
           </form>
           <address className="mt-4 not-italic leading-relaxed text-gray-100">
-            Asquare Food & Beverages Pvt Ltd<br />
-            Urla Industrial Area, Ring Rd Number 2,<br />
+            Asquare Food & Beverages Pvt Ltd
+            <br />
+            Urla Industrial Area, Ring Rd Number 2,
+            <br />
             Gondwara, Raipur, Chhattisgarh 493221.
           </address>
         </div>
@@ -66,7 +79,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/20 mt-8 py-4 text-sm px-4 max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-2">
-        <p>© 2025, Zoff Foods Pvt. Ltd.</p>
+        <p>© 2025, Annapurna Spices Pvt. Ltd.</p>
         <div className="flex gap-4 text-gray-300 flex-wrap">
           <a href="#">Refund policy</a>
           <a href="#">Privacy policy</a>
@@ -80,21 +93,62 @@ const Footer = () => {
         <p className="mb-2">Also available on:</p>
         <div className="flex flex-wrap justify-center items-center gap-3">
           {/* Replace with actual brand icons or logos */}
-          <Image src="https://zofffoods.com/cdn/shop/t/41/assets/flipkart.png?v=7983053720999907091745858915" alt="Flipkart" width={60} height={20} />
-          <Image src="https://zofffoods.com/cdn/shop/t/41/assets/flipkart.png?v=7983053720999907091745858915" alt="Amazon" width={60} height={20} />
-          <Image src="https://zofffoods.com/cdn/shop/t/41/assets/bigbasket.png?v=15864558822295353171745858892" alt="Bigbasket" width={60} height={20} />
-          <Image src="https://zofffoods.com/cdn/shop/t/41/assets/cred.png?v=63221540353615228361745858912" alt="CRED" width={60} height={20} />
-          <Image src="https://zofffoods.com/cdn/shop/t/41/assets/zepto.png?v=122578672725399468341745858974" alt="Zepto" width={60} height={20} />
-          <Image src="https://zofffoods.com/cdn/shop/t/41/assets/blinkit.png?v=69149072494461108771745858893" alt="Blinkit" width={60} height={20} />
-          <Image src="https://zofffoods.com/cdn/shop/t/41/assets/dmart.png?v=69149072494461108771745858893" alt="Dmart" width={60} height={20} />
-          <Image src="https://zofffoods.com/cdn/shop/t/41/assets/reliancefresh.png?v=69149072494461108771745858893" alt="Reliance" width={60} height={20} />
+          <Image
+            src="https://zofffoods.com/cdn/shop/t/41/assets/flipkart.png?v=7983053720999907091745858915"
+            alt="Flipkart"
+            width={60}
+            height={20}
+          />
+          <Image
+            src="https://zofffoods.com/cdn/shop/t/41/assets/flipkart.png?v=7983053720999907091745858915"
+            alt="Amazon"
+            width={60}
+            height={20}
+          />
+          <Image
+            src="https://zofffoods.com/cdn/shop/t/41/assets/bigbasket.png?v=15864558822295353171745858892"
+            alt="Bigbasket"
+            width={60}
+            height={20}
+          />
+          <Image
+            src="https://zofffoods.com/cdn/shop/t/41/assets/cred.png?v=63221540353615228361745858912"
+            alt="CRED"
+            width={60}
+            height={20}
+          />
+          <Image
+            src="https://zofffoods.com/cdn/shop/t/41/assets/zepto.png?v=122578672725399468341745858974"
+            alt="Zepto"
+            width={60}
+            height={20}
+          />
+          <Image
+            src="https://zofffoods.com/cdn/shop/t/41/assets/blinkit.png?v=69149072494461108771745858893"
+            alt="Blinkit"
+            width={60}
+            height={20}
+          />
+          <Image
+            src="https://zofffoods.com/cdn/shop/t/41/assets/dmart.png?v=69149072494461108771745858893"
+            alt="Dmart"
+            width={60}
+            height={20}
+          />
+          <Image
+            src="https://zofffoods.com/cdn/shop/t/41/assets/reliancefresh.png?v=69149072494461108771745858893"
+            alt="Reliance"
+            width={60}
+            height={20}
+          />
           <span>& More</span>
         </div>
       </div>
 
       {/* Sticky Shipping Bar */}
       <div className="sticky bottom-0 w-full bg-gray-800 text-white text-center py-2 text-sm">
-        Only <span className="text-yellow-400 font-semibold">₹99</span> away from free shipping
+        Only <span className="text-yellow-400 font-semibold">₹99</span> away
+        from free shipping
       </div>
     </footer>
   );
